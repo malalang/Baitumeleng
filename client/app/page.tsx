@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { QuoteForm } from '@/components/forms/QuoteForm';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
@@ -13,35 +13,52 @@ import {
   Facebook,
   Instagram,
   Linkedin,
-  Twitter
+  Twitter,
+  CheckCircle2,
+  Star,
+  ArrowRight,
+  Quote
 } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { GENERAL_SERVICES, DIGITAL_PRINTING } from '@/lib/data';
+import { 
+  GENERAL_SERVICES, 
+  DIGITAL_PRINTING, 
+  WHY_CHOOSE_US, 
+  PRICING_PACKAGES, 
+  TESTIMONIALS 
+} from '@/lib/data';
 
 export default function HomePage() {
   const heroImage = PlaceHolderImages.find(img => img.id === 'hero-bg');
+
+  const processSteps = [
+    { title: 'Inquiry', desc: 'Submit your request via our form or call us.' },
+    { title: 'Quotation', desc: 'Receive a detailed formal quote within 24 hours.' },
+    { title: 'Production', desc: 'Our experts handle your project with strict quality checks.' },
+    { title: 'Delivery', desc: 'Pick up your order or have it delivered to your doorstep.' },
+  ];
 
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[600px] flex items-center overflow-hidden">
+        <section className="relative h-[650px] flex items-center overflow-hidden">
           {heroImage && (
             <Image
               src={heroImage.imageUrl}
               alt={heroImage.description}
               fill
-              className="object-cover brightness-[0.4]"
+              className="object-cover brightness-[0.35]"
               priority
               data-ai-hint={heroImage.imageHint}
             />
           )}
           <div className="container mx-auto px-4 relative z-10">
-            <div className="max-w-2xl">
+            <div className="max-w-3xl">
               <Badge className="mb-6 px-4 py-1.5 text-sm bg-accent text-primary hover:bg-accent border-none font-bold uppercase tracking-wider">
                 Premium Printing & Business Services
               </Badge>
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tighter">
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tighter leading-[1.1]">
                 Your Business <span className="text-accent">Vision</span>, Brought to Life.
               </h1>
               <p className="text-xl text-gray-200 mb-10 leading-relaxed font-medium">
@@ -60,8 +77,32 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Trust Statistics Bar */}
+        <div className="bg-primary py-12 relative z-20 -mt-12 mx-4 md:mx-auto max-w-6xl rounded-[32px] shadow-2xl">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+              <div>
+                <p className="text-4xl md:text-5xl font-black text-accent mb-1 tracking-tighter">15+</p>
+                <p className="text-white/70 text-xs font-bold uppercase tracking-widest">Years Experience</p>
+              </div>
+              <div>
+                <p className="text-4xl md:text-5xl font-black text-accent mb-1 tracking-tighter">5k+</p>
+                <p className="text-white/70 text-xs font-bold uppercase tracking-widest">Happy Clients</p>
+              </div>
+              <div>
+                <p className="text-4xl md:text-5xl font-black text-accent mb-1 tracking-tighter">12k+</p>
+                <p className="text-white/70 text-xs font-bold uppercase tracking-widest">Projects Done</p>
+              </div>
+              <div>
+                <p className="text-4xl md:text-5xl font-black text-accent mb-1 tracking-tighter">24h</p>
+                <p className="text-white/70 text-xs font-bold uppercase tracking-widest">Avg. Turnaround</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Partners / Trust Bar */}
-        <div className="bg-white py-12 border-b">
+        <div className="bg-white py-16">
           <div className="container mx-auto px-4">
             <p className="text-center text-xs font-black text-muted-foreground uppercase tracking-[0.3em] mb-10">Trusted by Leading Organizations</p>
             <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-40 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500">
@@ -72,8 +113,32 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Why Choose Us Section */}
+        <section className="py-24 bg-secondary/20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <Badge className="bg-primary/10 text-primary hover:bg-primary/10 mb-4 font-bold uppercase tracking-widest">Why Baitumeleng</Badge>
+              <h2 className="text-3xl md:text-5xl font-bold text-primary mb-4 tracking-tighter">Setting the Professional Standard</h2>
+              <p className="text-muted-foreground mt-6 max-w-2xl mx-auto text-lg font-medium leading-relaxed">
+                We combine years of industry expertise with the latest technology to deliver results that exceed expectations.
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {WHY_CHOOSE_US.map((item, i) => (
+                <Card key={i} className="border-none shadow-sm rounded-[32px] p-8 hover:shadow-xl transition-all duration-300 bg-white group">
+                  <div className="w-14 h-14 bg-secondary rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                    <item.icon className="h-7 w-7 text-primary group-hover:text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-primary mb-3">{item.title}</h3>
+                  <p className="text-muted-foreground font-medium text-sm leading-relaxed">{item.desc}</p>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* General Services Overview */}
-        <section id="services" className="py-24 bg-background border-b">
+        <section id="services" className="py-24 bg-background">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-5xl font-bold text-primary mb-4 tracking-tighter">Essential Business Services</h2>
@@ -140,6 +205,96 @@ export default function HomePage() {
                   <span className="text-sm font-bold uppercase tracking-wider leading-tight block">Quality Satisfaction Guarantee on every single project.</span>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Process Guide Section */}
+        <section className="py-24 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-20">
+              <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 tracking-tighter">Our Seamless Workflow</h2>
+              <p className="text-muted-foreground text-lg font-medium">Getting your project from idea to reality is easier than ever.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              {processSteps.map((step, i) => (
+                <div key={i} className="relative text-center group">
+                  <div className="w-20 h-20 rounded-[24px] bg-secondary text-primary font-black text-3xl flex items-center justify-center mx-auto mb-8 shadow-sm group-hover:bg-accent transition-all duration-300">
+                    {i + 1}
+                  </div>
+                  <h4 className="font-bold text-primary text-xl mb-3">{step.title}</h4>
+                  <p className="text-muted-foreground font-medium text-sm leading-relaxed px-4">{step.desc}</p>
+                  {i < processSteps.length - 1 && (
+                    <div className="hidden md:block absolute top-10 left-full w-full h-px bg-primary/10 -z-10 -ml-10"></div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Pricing Packages Section */}
+        <section className="py-24 bg-secondary/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 tracking-tighter">Popular Service Bundles</h2>
+              <p className="text-muted-foreground text-lg font-medium">Transparent pricing for our most requested high-quality printing packages.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {PRICING_PACKAGES.map((pkg, i) => (
+                <Card key={i} className={`border-none rounded-[40px] shadow-sm flex flex-col overflow-hidden ${pkg.popular ? 'ring-4 ring-accent bg-white scale-105 z-10' : 'bg-white/80'}`}>
+                  {pkg.popular && (
+                    <div className="bg-accent text-primary text-center py-2 font-black uppercase text-xs tracking-[0.2em]">Best Value</div>
+                  )}
+                  <CardHeader className="p-10 pb-6 text-center">
+                    <CardTitle className="text-2xl font-bold text-primary mb-2">{pkg.name}</CardTitle>
+                    <div className="flex items-center justify-center gap-1">
+                      <span className="text-4xl font-black text-primary">{pkg.price}</span>
+                      <span className="text-muted-foreground font-bold text-sm uppercase">incl. VAT</span>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-10 pt-0 flex-1">
+                    <ul className="space-y-4">
+                      {pkg.items.map((item, j) => (
+                        <li key={j} className="flex items-center gap-3 text-muted-foreground font-medium">
+                          <CheckCircle2 className="h-5 w-5 text-accent shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                  <CardFooter className="p-10 pt-0">
+                    <Button className={`w-full h-14 rounded-2xl font-bold text-lg ${pkg.popular ? 'bg-primary' : 'bg-secondary text-primary hover:bg-primary hover:text-white'}`} asChild>
+                      <Link href="#quote">Order This Package</Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="py-24 bg-white overflow-hidden">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-20">
+              <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 tracking-tighter">Voice of Our Clients</h2>
+              <div className="flex justify-center gap-1 mb-4">
+                {[1, 2, 3, 4, 5].map((s) => <Star key={s} className="h-5 w-5 text-accent fill-accent" />)}
+              </div>
+              <p className="text-muted-foreground text-lg font-medium">Why South African businesses choose Baitumeleng year after year.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {TESTIMONIALS.map((t, i) => (
+                <div key={i} className="bg-secondary/20 p-10 rounded-[40px] border border-border/50 relative">
+                  <Quote className="h-12 w-12 text-accent/20 absolute top-8 right-8" />
+                  <p className="text-primary/80 font-medium italic mb-8 leading-relaxed text-lg">"{t.content}"</p>
+                  <div>
+                    <p className="font-black text-primary">{t.name}</p>
+                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mt-1">{t.role}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
