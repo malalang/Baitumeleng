@@ -14,7 +14,11 @@ import {
   CheckCircle2,
   ArrowRight,
   Star,
-  Quote
+  Quote,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter
 } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { 
@@ -355,11 +359,18 @@ export default function HomePage() {
                 <div className="mt-12 pt-8 border-t border-white/10">
                   <p className="text-xs font-black text-accent uppercase tracking-[0.2em] mb-4">Connect With Us</p>
                   <div className="flex gap-4">
-                    {['FB', 'IG', 'IN', 'TW'].map(social => (
-                      <div key={social} className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all font-black text-xs">
-                        {social}
-                      </div>
-                    ))}
+                    <Link href="#" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">
+                      <Facebook className="h-5 w-5" />
+                    </Link>
+                    <Link href="#" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">
+                      <Instagram className="h-5 w-5" />
+                    </Link>
+                    <Link href="#" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">
+                      <Linkedin className="h-5 w-5" />
+                    </Link>
+                    <Link href="#" className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">
+                      <Twitter className="h-5 w-5" />
+                    </Link>
                   </div>
                 </div>
               </div>
