@@ -42,7 +42,7 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[650px] flex items-center overflow-hidden">
+        <section className="relative py-6  flex items-center">
           {heroImage && (
             <Image
               src={heroImage.imageUrl}
