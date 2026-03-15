@@ -78,7 +78,7 @@ export default function HomePage() {
         </section>
 
         {/* Trust Statistics Bar */}
-        <div className="bg-primary py-12 relative z-20 -mt-12 mx-4 md:mx-auto max-w-6xl rounded-[32px] shadow-2xl">
+        <div className="bg-primary py-12 relative z-20 -mt-4 mx-4 md:mx-auto max-w-6xl rounded-[32px] shadow-2xl">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
