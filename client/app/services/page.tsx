@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
-import { GENERAL_SERVICES, DIGITAL_PRINTING } from '@/lib/data';
+import { GENERAL_SERVICES, DIGITAL_PRINTING  } from '@/lib/data';
+import { ServiceItem } from '@/lib/validations/service.schema';
 
 export default function ServicesPage() {
   return (
@@ -56,7 +57,7 @@ export default function ServicesPage() {
   );
 }
 
-function ServiceCard({ service }: { service: any }) {
+function ServiceCard({ service }: { service: ServiceItem }) {
   const Icon = service.icon;
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 border-none shadow-sm h-full flex flex-col">

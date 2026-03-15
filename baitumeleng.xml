@@ -107,6 +107,10 @@ admin/
   tsconfig.json
 client/
   app/
+    services/
+      [slug]/
+        page.tsx
+      page.tsx
     favicon.ico
     globals.css
     layout.tsx
@@ -114,6 +118,8 @@ client/
   components/
     forms/
       QuoteForm.tsx
+    layout/
+      Header.tsx
     ui/
       accordion.tsx
       alert-dialog.tsx
@@ -156,6 +162,7 @@ client/
   lib/
     validations/
       quote.schema.ts
+      service.schema.ts
     data.ts
     placeholder-images.json
     placeholder-images.ts
@@ -4973,6 +4980,259 @@ export default config;
 }
 </file>
 
+<file path="client/app/services/[slug]/page.tsx">
+import React from 'react';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { 
+  CheckCircle2, 
+  MessageSquare, 
+  Clock,
+  HelpCircle
+} from 'lucide-react';
+import { ALL_SERVICES } from '@/lib/data';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+
+export async function generateStaticParams() {
+  return ALL_SERVICES.map((service) => ({
+    slug: service.slug,
+  }));
+}
+
+interface ServicePageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function ServiceDetailPage({ params }: ServicePageProps) {
+  const { slug } = await params;
+  const service = ALL_SERVICES.find((s) => s.slug === slug);
+
+  if (!service) {
+    notFound();
+  }
+
+  const Icon = service.icon;
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="bg-primary py-20 text-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-12">
+              <div className={`p-8 rounded-3xl ${service.color || 'bg-white/10'} shadow-2xl`}>
+                <Icon className="h-24 w-24 text-white" />
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <span className="inline-block px-4 py-1 rounded-full bg-accent text-primary text-xs font-bold uppercase tracking-widest mb-4">
+                  {service.category === 'general' ? 'General Service' : 'Digital Printing'}
+                </span>
+                <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 uppercase tracking-tighter">
+                  {service.name}
+                </h1>
+                <p className="text-xl text-white/80 leading-relaxed max-w-2xl">
+                  {service.desc}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Content Section */}
+        <section className="py-24 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+              {/* Main Column */}
+              <div className="lg:col-span-8">
+                <div className="prose prose-lg max-w-none mb-12">
+                  <h2 className="text-3xl font-bold mb-6 text-primary">About this Service</h2>
+                  <p className="text-xl text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                    {service.longDescription}
+                  </p>
+                </div>
+
+                {service.features && (
+                  <div className="mb-12">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                      <CheckCircle2 className="text-primary h-6 w-6" /> Key Features
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {service.features.map((feature, i) => (
+                        <Card key={i} className="border-none bg-secondary/30">
+                          <CardContent className="p-4 flex items-center gap-3">
+                            <div className="h-2 w-2 rounded-full bg-accent shrink-0" />
+                            <span className="font-medium">{feature}</span>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {service.pricingNote && (
+                  <div className="bg-accent/10 border-l-4 border-accent p-6 rounded-r-2xl mb-12">
+                    <div className="flex items-start gap-4">
+                      <HelpCircle className="h-6 w-6 text-primary shrink-0" />
+                      <div>
+                        <h4 className="font-bold text-primary mb-1 text-lg">Pricing Information</h4>
+                        <p className="text-muted-foreground">{service.pricingNote}</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {service.faqs && service.faqs.length > 0 && (
+                  <div className="mt-16">
+                    <h3 className="text-2xl font-bold mb-8">Frequently Asked Questions</h3>
+                    <Accordion type="single" collapsible className="w-full">
+                      {service.faqs.map((faq, index) => (
+                        <AccordionItem key={index} value={`item-${index}`}>
+                          <AccordionTrigger className="text-left font-bold text-lg">{faq.question}</AccordionTrigger>
+                          <AccordionContent className="text-muted-foreground text-base">
+                            {faq.answer}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </div>
+                )}
+              </div>
+
+              {/* Sidebar Column */}
+              <div className="lg:col-span-4">
+                <Card className="sticky top-24 border-none shadow-2xl bg-primary text-white overflow-hidden">
+                  <div className="p-8">
+                    <h3 className="text-2xl font-bold mb-4">Request a Quote</h3>
+                    <p className="text-white/80 mb-8">
+                      Ready to get started with your {service.name} project? Our team is ready to assist you.
+                    </p>
+                    <div className="space-y-4">
+                      <Button asChild size="lg" className="w-full bg-accent text-primary hover:bg-white transition-all font-bold">
+                        <Link href={`/#quote`}>Get My Quote Now</Link>
+                      </Button>
+                      <div className="flex items-center justify-center gap-2 py-4">
+                        <Clock className="h-4 w-4 text-accent" />
+                        <span className="text-sm">Response within 24 hours</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-white/10 p-6 border-t border-white/10">
+                    <div className="flex items-center gap-4">
+                      <div className="bg-accent p-2 rounded-lg">
+                        <MessageSquare className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wider text-accent">Need Help?</p>
+                        <p className="font-bold">+27 12 345 6789</p>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-white border-t py-12 mt-20">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm text-muted-foreground">
+            &copy; {new Date().getFullYear()} Baitumeleng Services. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+</file>
+
+<file path="client/app/services/page.tsx">
+import React from 'react';
+import Link from 'next/link';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { ChevronRight } from 'lucide-react';
+import { GENERAL_SERVICES, DIGITAL_PRINTING  } from '@/lib/data';
+import { ServiceItem } from '@/lib/validations/service.schema';
+
+export default function ServicesPage() {
+  return (
+    <div className="flex flex-col min-h-screen bg-secondary/20">
+      <main className="flex-1 py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mb-16">
+            <h1 className="text-4xl md:text-5xl mb-6">Our Full Suite of Services</h1>
+            <p className="text-xl text-muted-foreground">
+              From essential business administrative support to high-impact digital printing and signage solutions.
+            </p>
+          </div>
+
+          {/* General Services Section */}
+          <section className="mb-20">
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-2xl font-bold">General Business Services</h2>
+              <div className="flex-1 h-px bg-border"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {GENERAL_SERVICES.map((service) => (
+                <ServiceCard key={service.id} service={service} />
+              ))}
+            </div>
+          </section>
+
+          {/* Digital Printing Section */}
+          <section>
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-2xl font-bold">Digital Printing & Signage</h2>
+              <div className="flex-1 h-px bg-border"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {DIGITAL_PRINTING.map((service) => (
+                <ServiceCard key={service.id} service={service} />
+              ))}
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer className="bg-white border-t py-12">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-sm text-muted-foreground">
+            &copy; {new Date().getFullYear()} Baitumeleng Services. Professional Printing Solutions.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+function ServiceCard({ service }: { service: ServiceItem }) {
+  const Icon = service.icon;
+  return (
+    <Card className="group hover:shadow-lg transition-all duration-300 border-none shadow-sm h-full flex flex-col">
+      <CardHeader className="flex flex-row items-center gap-4 pb-2">
+        <div className={`p-3 rounded-xl ${service.color || 'bg-secondary'} group-hover:bg-primary transition-colors`}>
+          <Icon className={`h-6 w-6 ${service.color ? 'text-white' : 'text-primary'} group-hover:text-white`} />
+        </div>
+        <CardTitle className="text-xl">{service.name}</CardTitle>
+      </CardHeader>
+      <CardContent className="flex-1 flex flex-col justify-between">
+        <p className="text-muted-foreground line-clamp-2">{service.desc}</p>
+        <div className="mt-6">
+          <Button asChild variant="outline" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
+            <Link href={`/services/${service.slug}`}>
+              View Details <ChevronRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+</file>
+
 <file path="client/app/globals.css">
 @import "tailwindcss";
 
@@ -5106,6 +5366,7 @@ import type {Metadata} from 'next';
 import {Inter} from 'next/font/google';
 import './globals.css';
 import {Toaster} from '@/components/ui/toaster';
+import {Header} from '@/components/layout/Header';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -5146,8 +5407,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={`${inter.variable} font-body antialiased selection:bg-accent selection:text-accent-foreground`}>
+        <Header />
         {children}
         <Toaster />
       </body>
@@ -5178,28 +5440,6 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="bg-primary p-2 rounded-lg">
-              <Printer className="text-white h-6 w-6" />
-            </div>
-            <span className="text-2xl font-headline font-bold text-primary tracking-tighter">
-              BAITUMELENG
-            </span>
-          </Link>
-          <nav className="hidden md:flex items-center gap-8">
-            <Link href="#services" className="text-sm font-medium hover:text-primary transition-colors">Services</Link>
-            <Link href="#printing" className="text-sm font-medium hover:text-primary transition-colors">Digital Printing</Link>
-            <Link href="#quote" className="text-sm font-medium hover:text-primary transition-colors">Request Quote</Link>
-            <Button asChild size="sm">
-              <Link href="#quote">Contact Us</Link>
-            </Button>
-          </nav>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="relative h-[600px] flex items-center overflow-hidden">
         {heroImage && (
@@ -5228,8 +5468,8 @@ export default function HomePage() {
               <Button size="lg" className="h-14 px-8 text-lg" asChild>
                 <Link href="#quote">Get a Free Quote</Link>
               </Button>
-              <Button size="lg" variant="outline" className="h-14 px-8 text-lg bg-white/10 text-white hover:bg-white hover:text-primary border-white">
-                View All Services
+              <Button size="lg" variant="outline" className="h-14 px-8 text-lg bg-white/10 text-white hover:bg-white hover:text-primary border-white" asChild>
+                <Link href="/services">View All Services</Link>
               </Button>
             </div>
           </div>
@@ -5237,7 +5477,7 @@ export default function HomePage() {
       </section>
 
       {/* General Services Grid */}
-      <section id="services" className="py-24 bg-background">
+      <section id="services" className="py-24 bg-background border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl mb-4">Essential Business Services</h2>
@@ -5247,8 +5487,8 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {GENERAL_SERVICES.map((service) => (
-              <Card key={service.name} className="group hover:shadow-xl transition-all duration-300 border-none shadow-sm bg-white overflow-hidden">
+            {GENERAL_SERVICES.slice(0, 6).map((service) => (
+              <Card key={service.id} className="group hover:shadow-xl transition-all duration-300 border-none shadow-sm bg-white overflow-hidden">
                 <CardHeader className="flex flex-row items-center gap-4 pb-2">
                   <div className="p-3 rounded-xl bg-secondary group-hover:bg-primary transition-colors">
                     <service.icon className="h-6 w-6 text-primary group-hover:text-white" />
@@ -5256,13 +5496,20 @@ export default function HomePage() {
                   <CardTitle className="text-xl">{service.name}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{service.desc}</p>
-                  <Button variant="link" className="px-0 mt-4 group-hover:translate-x-2 transition-transform">
-                    Learn more <ChevronRight className="h-4 w-4 ml-1" />
+                  <p className="text-muted-foreground line-clamp-2">{service.desc}</p>
+                  <Button variant="link" className="px-0 mt-4 group-hover:translate-x-2 transition-transform" asChild>
+                    <Link href={`/services/${service.slug}`}>
+                      Learn more <ChevronRight className="h-4 w-4 ml-1" />
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>
             ))}
+          </div>
+          <div className="text-center mt-12">
+            <Button variant="outline" size="lg" asChild>
+              <Link href="/services">See All Services</Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -5279,13 +5526,13 @@ export default function HomePage() {
                 We use state-of-the-art equipment to ensure color accuracy and durability.
               </p>
               <div className="grid grid-cols-2 gap-6">
-                {DIGITAL_PRINTING.map((item) => (
-                  <div key={item.name} className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/10">
+                {DIGITAL_PRINTING.slice(0, 6).map((item) => (
+                  <Link key={item.id} href={`/services/${item.slug}`} className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
                     <div className={`p-2 rounded-lg ${item.color}`}>
                       <item.icon className="h-5 w-5 text-white" />
                     </div>
                     <span className="font-medium">{item.name}</span>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -5352,9 +5599,9 @@ export default function HomePage() {
                 <div className="mt-12 pt-8 border-t border-primary/10">
                   <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">Social Hub</p>
                   <div className="flex gap-4">
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">FB</div>
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">IG</div>
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">IN</div>
+                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">FB</div>
+                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">IG</div>
+                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">IN</div>
                   </div>
                 </div>
               </div>
@@ -5589,6 +5836,38 @@ export function QuoteForm() {
         </Button>
       </form>
     </Form>
+  );
+}
+</file>
+
+<file path="client/components/layout/Header.tsx">
+import React from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Printer } from 'lucide-react';
+
+export function Header() {
+  return (
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2">
+          <div className="bg-primary p-2 rounded-lg">
+            <Printer className="text-white h-6 w-6" />
+          </div>
+          <span className="text-2xl font-headline font-bold text-primary tracking-tighter">
+            BAITUMELENG
+          </span>
+        </Link>
+        <nav className="hidden md:flex items-center gap-8">
+          <Link href="/services" className="text-sm font-medium hover:text-primary transition-colors">Services</Link>
+          <Link href="/#printing" className="text-sm font-medium hover:text-primary transition-colors">Digital Printing</Link>
+          <Link href="/#quote" className="text-sm font-medium hover:text-primary transition-colors">Request Quote</Link>
+          <Button asChild size="sm">
+            <Link href="/#quote">Contact Us</Link>
+          </Button>
+        </nav>
+      </div>
+    </header>
   );
 }
 </file>
@@ -9645,20 +9924,6 @@ export { useToast, toast }
 <file path="client/lib/validations/quote.schema.ts">
 import { z } from 'zod';
 
-export const serviceItemSchema = z.object({
-  name: z.string(),
-  icon: z.any(),
-  desc: z.string().optional(),
-  color: z.string().optional(),
-});
-
-export const generalServicesSchema = z.array(serviceItemSchema);
-export const digitalPrintingSchema = z.array(serviceItemSchema);
-
-export type ServiceItem = z.infer<typeof serviceItemSchema>;
-
-
-
 export const quoteSchema = z.object({
   fullName: z.string().min(2, 'Full name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
@@ -9672,49 +9937,218 @@ export const quoteSchema = z.object({
 export type QuoteFormData = z.infer<typeof quoteSchema>;
 </file>
 
+<file path="client/lib/validations/service.schema.ts">
+import { z } from 'zod';
+
+// 1. Define a sub-schema for FAQs
+export const faqSchema = z.object({
+  question: z.string(),
+  answer: z.string(),
+});
+
+// 2. The enhanced Service Item Schema
+export const serviceItemSchema = z.object({
+  // Core Identifiers
+  id: z.string(),
+  slug: z.string(),
+  name: z.string(),
+  category: z.enum(['general', 'digital-printing']),
+  
+  // UI & Card Details
+  icon: z.any(), // Using any to accommodate React functional components (Lucide icons)
+  color: z.string().optional(),
+  desc: z.string().optional(), // Short description for the homepage cards
+  isPopular: z.boolean().optional().default(false), // To highlight specific services on the main page
+  
+  // Service Page Content
+  longDescription: z.string().optional(), // Main body copy for the service page
+  features: z.array(z.string()).optional(), // Key bullet points (e.g., "Fast turnaround", "Full color")
+  benefits: z.array(z.string()).optional(), // Why choose us for this service
+  pricingNote: z.string().optional(), // e.g., "Starting at R150", "Bulk discounts available"
+  
+  // Media
+  imageUrl: z.string().optional(), // Main hero image for the service page
+  gallery: z.array(z.string()).optional(), // Array of image URLs to show previous work
+  
+  // SEO Details
+  seoTitle: z.string().optional(),
+  seoDescription: z.string().optional(),
+  
+  // Optional FAQs specific to this service
+  faqs: z.array(faqSchema).optional(),
+});
+
+// Export the inferred type for use in your components
+export type ServiceItem = z.infer<typeof serviceItemSchema>;
+export type FaqItem = z.infer<typeof faqSchema>;
+
+export const generalServicesSchema = z.array(serviceItemSchema);
+export const digitalPrintingSchema = z.array(serviceItemSchema);
+</file>
+
 <file path="client/lib/data.ts">
-import { 
-  Copy, 
-  BookOpen, 
-  Scan, 
-  Pencil, 
-  Type, 
-  Mail, 
-  Shirt, 
-  Flag, 
-  Box, 
-  Square, 
-  FileText, 
-  Image as ImageIcon 
+import {
+  Copy,
+  BookOpen,
+  Scan,
+  Pencil,
+  Type,
+  Mail,
+  Shirt,
+  Flag,
+  Box,
+  Square,
+  FileText,
+  Image as ImageIcon
 } from 'lucide-react';
-import { 
-  type ServiceItem, 
-  generalServicesSchema, 
-  digitalPrintingSchema 
-} from './validations/quote.schema';
+import {
+  type ServiceItem,
+  generalServicesSchema,
+  digitalPrintingSchema
+} from './validations/service.schema';
 
 const rawGeneralServices = [
-  { name: 'Photocopies', icon: Copy, desc: 'High-speed black & white or color copies.' },
-  { name: 'Binding', icon: BookOpen, desc: 'Spiral, wire, or perfect binding for documents.' },
-  { name: 'Scanning', icon: Scan, desc: 'Digitalize your physical documents instantly.' },
-  { name: 'Stationery', icon: Pencil, desc: 'Essential office supplies and paper goods.' },
-  { name: 'Typing', icon: Type, desc: 'Professional document typing and formatting.' },
-  { name: 'Email', icon: Mail, desc: 'Send and receive important documents via email.' },
+  {
+    id: 'gen-1',
+    slug: 'photocopies',
+    name: 'Photocopies',
+    category: 'general',
+    icon: Copy,
+    desc: 'High-speed black & white or color copies.',
+    longDescription: 'Our high-volume photocopying service is designed for businesses and individuals who need crisp, clear duplicates at scale. We use industrial-grade Xerox machines to ensure every page looks as good as the original.',
+    features: ['High-speed bulk printing', 'A4 & A3 sizes available', 'Auto-collation and stapling'],
+    pricingNote: 'Starting from R0.50 per page'
+  },
+  {
+    id: 'gen-2',
+    slug: 'binding',
+    name: 'Binding',
+    category: 'general',
+    icon: BookOpen,
+    desc: 'Spiral, wire, or perfect binding for documents.',
+    longDescription: 'Give your reports, thesis, or manuals a professional finish. We offer various binding styles that are durable and easy to flip through.',
+    features: ['Spiral (Plastic) binding', 'Wire (Metal) binding', 'Clear acetate front covers'],
+    pricingNote: 'Bulk discounts for students'
+  },
+  {
+    id: 'gen-3',
+    slug: 'scanning',
+    name: 'Scanning',
+    category: 'general',
+    icon: Scan,
+    desc: 'Digitalize your physical documents instantly.',
+    longDescription: 'Convert your physical archives into searchable digital PDF files. Our high-speed document feeders can handle hundreds of pages in minutes.',
+    features: ['Scan to Email or USB', 'High-resolution 600 DPI', 'OCR (Searchable PDF) available'],
+  },
+  {
+    id: 'gen-4',
+    slug: 'stationery',
+    name: 'Stationery',
+    category: 'general',
+    icon: Pencil,
+    desc: 'Essential office supplies and paper goods.',
+    longDescription: 'Your one-stop shop for essential office and school supplies. From premium paper to writing instruments, we stock what you need to stay productive.',
+    features: ['Bulk paper reams', 'Writing materials', 'Filing accessories'],
+  },
+  {
+    id: 'gen-5',
+    slug: 'typing',
+    name: 'Typing',
+    category: 'general',
+    icon: Type,
+    desc: 'Professional document typing and formatting.',
+    longDescription: 'Need a handwritten draft turned into a professional document? Our typing service provides accurate, formatted digital files ready for submission.',
+    features: ['CV Typing', 'Assignment formatting', 'Data entry services'],
+  },
+  {
+    id: 'gen-6',
+    slug: 'email-internet',
+    name: 'Email & Internet',
+    category: 'general',
+    icon: Mail,
+    desc: 'Send and receive important documents via email.',
+    longDescription: 'Quick and secure internet access for all your administrative needs. Whether it is applying for a job, checking emails, or submitting online forms.',
+    features: ['Secure document handling', 'Fast internet browsing', 'Public printing access'],
+  },
 ];
 
 const rawDigitalPrinting = [
-  { name: 'T-Shirt Printing', icon: Shirt, color: 'bg-blue-500' },
-  { name: 'Banners', icon: Flag, color: 'bg-yellow-500' },
-  { name: '3D Signage', icon: Box, color: 'bg-primary' },
-  { name: 'Sign Boards', icon: Square, color: 'bg-green-500' },
-  { name: 'Flyers', icon: FileText, color: 'bg-red-500' },
-  { name: 'Posters', icon: ImageIcon, color: 'bg-purple-500' },
+  {
+    id: 'dig-1',
+    slug: 't-shirt-printing',
+    name: 'T-Shirt Printing',
+    category: 'digital-printing',
+    icon: Shirt,
+    color: 'bg-blue-500',
+    isPopular: true,
+    desc: 'Custom apparel for events, staff, or retail.',
+    longDescription: 'Elevate your brand or event with custom-printed apparel. We use premium Heat Transfer and Screen Printing methods that ensure vibrant colors and long-lasting durability.',
+    features: ['No minimum order', 'Full-color transfers', 'Cotton & Synthetic fabric support'],
+    pricingNote: 'Discounts on 10+ shirts'
+  },
+  {
+    id: 'dig-2',
+    slug: 'banners',
+    name: 'Banners',
+    category: 'digital-printing',
+    icon: Flag,
+    color: 'bg-yellow-500',
+    desc: 'PVC and Pull-up banners for maximum visibility.',
+    longDescription: 'Perfect for events and storefronts, our high-quality PVC banners are weather-resistant and designed to grab attention from a distance.',
+    features: ['Pull-up / Roller banners', 'Outdoor PVC with eyelets', 'UV-resistant inks'],
+  },
+  {
+    id: 'dig-3',
+    slug: '3d-signage',
+    name: '3D Signage',
+    category: 'digital-printing',
+    icon: Box,
+    color: 'bg-primary',
+    isPopular: true,
+    desc: 'Dimensional storefront and reception signs.',
+    longDescription: 'Make your business stand out with custom 3D fabricated signs. We create dimensional logos and letters that give your brand a high-end, professional look.',
+    features: ['Acrylic & Perspex fabrication', 'LED Backlighting options', 'Professional installation'],
+  },
+  {
+    id: 'dig-4',
+    slug: 'sign-boards',
+    name: 'Sign Boards',
+    category: 'digital-printing',
+    icon: Square,
+    color: 'bg-green-500',
+    desc: 'Professional Chromadek and Correx boards.',
+    longDescription: 'Durable signage solutions for long-term outdoor use or short-term event advertising. Available in various materials to suit your budget.',
+    features: ['Chromadek (Steel) signs', 'Correx (Fluted plastic) boards', 'Reflective vinyl options'],
+  },
+  {
+    id: 'dig-5',
+    slug: 'flyers',
+    name: 'Flyers',
+    category: 'digital-printing',
+    icon: FileText,
+    color: 'bg-red-500',
+    desc: 'Promotional marketing material to grow your brand.',
+    longDescription: 'Get your message into the hands of your customers. Our flyers are printed on premium gloss or matt paper with high-impact color reproduction.',
+    features: ['A5 & A6 standard sizes', 'Single or double-sided', 'Gloss or Matt finish'],
+  },
+  {
+    id: 'dig-6',
+    slug: 'posters',
+    name: 'Posters',
+    category: 'digital-printing',
+    icon: ImageIcon,
+    color: 'bg-purple-500',
+    desc: 'High-impact large format poster printing.',
+    longDescription: 'From A3 to A0 and beyond, our posters are perfect for event promotions, indoor decor, or informational displays in high-traffic areas.',
+    features: ['A2, A1, A0 sizes', 'High-gloss photo paper', 'Custom size printing'],
+  },
 ];
 
 export const GENERAL_SERVICES: ServiceItem[] = generalServicesSchema.parse(rawGeneralServices);
 export const DIGITAL_PRINTING: ServiceItem[] = digitalPrintingSchema.parse(rawDigitalPrinting);
 
-export * from './validations/quote.schema';
+// Helper to get all services in one list
+export const ALL_SERVICES = [...GENERAL_SERVICES, ...DIGITAL_PRINTING];
 </file>
 
 <file path="client/lib/placeholder-images.json">

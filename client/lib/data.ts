@@ -16,7 +16,7 @@ import {
   type ServiceItem,
   generalServicesSchema,
   digitalPrintingSchema
-} from './validations/quote.schema';
+} from './validations/service.schema';
 
 const rawGeneralServices = [
   {
@@ -161,4 +161,3 @@ export const DIGITAL_PRINTING: ServiceItem[] = digitalPrintingSchema.parse(rawDi
 // Helper to get all services in one list
 export const ALL_SERVICES = [...GENERAL_SERVICES, ...DIGITAL_PRINTING];
 
-export * from './validations/quote.schema';

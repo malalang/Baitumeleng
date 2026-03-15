@@ -6,7 +6,7 @@ export const SERVICE_CATEGORIES = [
   'Scanning',
   'Stationery',
   'Typing',
-  'Email Services',
+  'Email & Internet',
   'T-Shirt Printing',
   'Banners',
   '3D Signage',

@@ -16,7 +16,8 @@ import {
   TrendingUp,
   Search,
   MoreVertical,
-  ArrowUpRight
+  ArrowUpRight,
+  Clock
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -62,14 +63,14 @@ export default function AdminDashboard() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input placeholder="Search quotes..." className="pl-10 w-64 bg-white" />
             </div>
-            <Button>Export Reports</Button>
+            <Button shadow-md>Export Reports</Button>
           </div>
         </div>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard title="Total Quotes" value="1,284" change="+12.5%" icon={FileText} />
-          <StatCard title="Pending" value="48" change="-2.4%" icon={ClockIcon} />
+          <StatCard title="Pending" value="48" change="-2.4%" icon={Clock} />
           <StatCard title="New Customers" value="126" change="+18.2%" icon={Users} />
           <StatCard title="Monthly Revenue" value="R45,200" change="+5.4%" icon={TrendingUp} />
         </div>
@@ -149,25 +150,5 @@ function LinkItem({ icon: Icon, label, active = false }: any) {
       <Icon className="h-4 w-4" />
       <span className="text-sm font-medium">{label}</span>
     </div>
-  );
-}
-
-function ClockIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <polyline points="12 6 12 12 16 14" />
-    </svg>
   );
 }
