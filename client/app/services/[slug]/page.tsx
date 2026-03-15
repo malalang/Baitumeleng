@@ -15,7 +15,8 @@ import {
   Zap,
   Award,
   Star,
-  ChevronRight
+  ChevronRight,
+  Image as ImageIcon
 } from 'lucide-react';
 import { ALL_SERVICES } from '@/lib/data';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -102,7 +103,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                             alt={item.alt} 
                             fill 
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            data-ai-hint={item.hint}
+                            data-ai-hint={item.hint || 'printing work'}
                           />
                           <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-6 text-center">
                             <p className="text-white font-bold text-sm">{item.alt}</p>
