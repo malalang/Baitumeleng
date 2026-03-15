@@ -10,7 +10,11 @@ import {
   Box,
   Square,
   FileText,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Zap,
+  ShieldCheck,
+  Award,
+  Users
 } from 'lucide-react';
 import {
   type ServiceItem,
@@ -158,6 +162,66 @@ const rawDigitalPrinting = [
 export const GENERAL_SERVICES: ServiceItem[] = generalServicesSchema.parse(rawGeneralServices);
 export const DIGITAL_PRINTING: ServiceItem[] = digitalPrintingSchema.parse(rawDigitalPrinting);
 
-// Helper to get all services in one list
 export const ALL_SERVICES = [...GENERAL_SERVICES, ...DIGITAL_PRINTING];
 
+export const WHY_CHOOSE_US = [
+  {
+    icon: Zap,
+    title: 'Fast Turnaround',
+    desc: 'We understand that business moves fast. Most small jobs are completed same-day.'
+  },
+  {
+    icon: ShieldCheck,
+    title: 'Quality Guaranteed',
+    desc: 'Using only premium inks and materials to ensure your brand looks its absolute best.'
+  },
+  {
+    icon: Award,
+    title: '15+ Years Experience',
+    desc: 'Serving the community since 2010 with expert knowledge in print and signage.'
+  },
+  {
+    icon: Users,
+    title: 'Client Focused',
+    desc: 'We work closely with you to understand your specific needs and provide tailored solutions.'
+  }
+];
+
+export const PRICING_PACKAGES = [
+  {
+    name: 'Business Starter',
+    price: 'R450',
+    items: ['500 Business Cards', 'Full Color', 'Premium Matt Finish', 'Design Included'],
+    popular: false
+  },
+  {
+    name: 'Marketing Pro',
+    price: 'R1,200',
+    items: ['1000 A5 Flyers', 'Single Sided', 'High Gloss Paper', '24h Delivery'],
+    popular: true
+  },
+  {
+    name: 'Event Package',
+    price: 'R2,500',
+    items: ['1 Pull-up Banner', '10 Printed T-Shirts', '50 Full Color Posters', 'Priority Support'],
+    popular: false
+  }
+];
+
+export const TESTIMONIALS = [
+  {
+    name: 'Sarah Mokoena',
+    role: 'Local Business Owner',
+    content: 'Baitumeleng transformed my shopfront with their 3D signage. The quality is world-class and the service was incredibly fast!'
+  },
+  {
+    name: 'David Wilson',
+    role: 'Event Coordinator',
+    content: 'The best place for event banners. They handled a bulk order of 500 flyers and 5 banners in record time. Highly recommended.'
+  },
+  {
+    name: 'Themba Khumalo',
+    role: 'Student',
+    content: 'Very affordable binding services for my thesis. The clear covers and spiral binding made it look very professional.'
+  }
+];
