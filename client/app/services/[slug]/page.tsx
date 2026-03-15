@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
   CheckCircle2, 
@@ -12,7 +13,9 @@ import {
   ArrowRight,
   ShieldCheck,
   Zap,
-  Award
+  Award,
+  Star,
+  ChevronRight
 } from 'lucide-react';
 import { ALL_SERVICES } from '@/lib/data';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -36,6 +39,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
   }
 
   const Icon = service.icon;
+  const relatedServices = ALL_SERVICES.filter(s => s.category === service.category && s.slug !== service.slug).slice(0, 3);
 
   const processSteps = [
     { title: 'Inquiry', desc: 'Submit your request via our form or call us for a custom consultation.' },
@@ -84,6 +88,31 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   </div>
                 </div>
 
+                {/* Project Gallery Section */}
+                {service.gallery && service.gallery.length > 0 && (
+                  <div className="mb-20">
+                    <h3 className="text-2xl font-bold mb-10 flex items-center gap-3 text-primary uppercase tracking-wider">
+                      <ImageIcon className="text-accent h-7 w-7" /> Recent Work Gallery
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {service.gallery.map((item, i) => (
+                        <div key={i} className="group relative aspect-square rounded-[32px] overflow-hidden shadow-lg border border-border">
+                          <Image 
+                            src={item.url} 
+                            alt={item.alt} 
+                            fill 
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            data-ai-hint={item.hint}
+                          />
+                          <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-6 text-center">
+                            <p className="text-white font-bold text-sm">{item.alt}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Features Grid */}
                 {service.features && (
                   <div className="mb-20">
@@ -120,24 +149,32 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   </div>
                 </div>
 
-                {/* Value Props */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
-                  <div className="p-8 rounded-3xl bg-white shadow-sm border border-border flex flex-col gap-4">
-                    <Zap className="h-8 w-8 text-accent fill-accent/20" />
-                    <h4 className="font-bold text-primary text-lg">Fast Turnaround</h4>
-                    <p className="text-sm text-muted-foreground font-medium">Small jobs completed same-day; large projects within 3-5 days.</p>
+                {/* Customer Reviews */}
+                {service.reviews && service.reviews.length > 0 && (
+                  <div className="mb-20">
+                    <h3 className="text-2xl font-bold mb-10 flex items-center gap-3 text-primary uppercase tracking-wider">
+                      <MessageSquare className="text-accent h-7 w-7" /> Client Reviews
+                    </h3>
+                    <div className="space-y-6">
+                      {service.reviews.map((review, i) => (
+                        <Card key={i} className="border-none rounded-[32px] bg-white shadow-sm p-8">
+                          <div className="flex justify-between items-start mb-4">
+                            <div>
+                              <p className="font-bold text-primary text-lg">{review.name}</p>
+                              <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest">{review.date}</p>
+                            </div>
+                            <div className="flex gap-0.5">
+                              {[...Array(5)].map((_, i) => (
+                                <Star key={i} className={`h-4 w-4 ${i < review.rating ? 'text-accent fill-accent' : 'text-muted'}`} />
+                              ))}
+                            </div>
+                          </div>
+                          <p className="text-muted-foreground font-medium leading-relaxed italic">"{review.comment}"</p>
+                        </Card>
+                      ))}
+                    </div>
                   </div>
-                  <div className="p-8 rounded-3xl bg-white shadow-sm border border-border flex flex-col gap-4">
-                    <ShieldCheck className="h-8 w-8 text-accent fill-accent/20" />
-                    <h4 className="font-bold text-primary text-lg">Guaranteed Quality</h4>
-                    <p className="text-sm text-muted-foreground font-medium">We use only premium industrial-grade materials and inks.</p>
-                  </div>
-                  <div className="p-8 rounded-3xl bg-white shadow-sm border border-border flex flex-col gap-4">
-                    <Award className="h-8 w-8 text-accent fill-accent/20" />
-                    <h4 className="font-bold text-primary text-lg">Expert Knowledge</h4>
-                    <p className="text-sm text-muted-foreground font-medium">Over 15 years of industry experience at your service.</p>
-                  </div>
-                </div>
+                )}
 
                 {/* Pricing Info */}
                 {service.pricingNote && (
@@ -152,20 +189,28 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   </div>
                 )}
 
-                {/* FAQs */}
-                {service.faqs && service.faqs.length > 0 && (
-                  <div className="mt-24">
-                    <h3 className="text-3xl font-bold mb-10 text-primary tracking-tight">Common Questions About {service.name}</h3>
-                    <Accordion type="single" collapsible className="w-full space-y-4">
-                      {service.faqs.map((faq, index) => (
-                        <AccordionItem key={index} value={`item-${index}`} className="border rounded-3xl px-8 bg-white shadow-sm">
-                          <AccordionTrigger className="text-left font-bold text-xl text-primary py-6 hover:no-underline">{faq.question}</AccordionTrigger>
-                          <AccordionContent className="text-muted-foreground text-lg font-medium pb-8 leading-relaxed">
-                            {faq.answer}
-                          </AccordionContent>
-                        </AccordionItem>
+                {/* Related Services */}
+                {relatedServices.length > 0 && (
+                  <div className="mt-20">
+                    <h3 className="text-2xl font-bold mb-10 text-primary uppercase tracking-widest">Explore Other {service.category === 'general' ? 'Business' : 'Printing'} Services</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      {relatedServices.map((rs) => (
+                        <Link key={rs.id} href={`/services/${rs.slug}`} className="group block h-full">
+                          <Card className="h-full border-none rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 bg-white">
+                            <CardContent className="p-8 flex flex-col h-full">
+                              <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                                <rs.icon className="h-6 w-6 text-primary group-hover:text-white" />
+                              </div>
+                              <h4 className="font-bold text-primary text-xl mb-3 group-hover:text-primary transition-colors">{rs.name}</h4>
+                              <p className="text-muted-foreground text-sm font-medium line-clamp-2 mb-6 flex-1">{rs.desc}</p>
+                              <div className="flex items-center text-primary font-bold text-sm">
+                                View Details <ChevronRight className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </Link>
                       ))}
-                    </Accordion>
+                    </div>
                   </div>
                 )}
               </div>

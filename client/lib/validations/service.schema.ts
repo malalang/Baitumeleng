@@ -1,9 +1,16 @@
 import { z } from 'zod';
 
-// 1. Define a sub-schema for FAQs
+// 1. Define sub-schemas for FAQs and Reviews
 export const faqSchema = z.object({
   question: z.string(),
   answer: z.string(),
+});
+
+export const reviewSchema = z.object({
+  name: z.string(),
+  rating: z.number().min(1).max(5),
+  comment: z.string(),
+  date: z.string(),
 });
 
 // 2. The enhanced Service Item Schema
@@ -28,7 +35,11 @@ export const serviceItemSchema = z.object({
   
   // Media
   imageUrl: z.string().optional(), // Main hero image for the service page
-  gallery: z.array(z.string()).optional(), // Array of image URLs to show previous work
+  gallery: z.array(z.object({
+    url: z.string(),
+    alt: z.string(),
+    hint: z.string().optional(),
+  })).optional(),
   
   // SEO Details
   seoTitle: z.string().optional(),
@@ -36,11 +47,15 @@ export const serviceItemSchema = z.object({
   
   // Optional FAQs specific to this service
   faqs: z.array(faqSchema).optional(),
+  
+  // Reviews specific to this service
+  reviews: z.array(reviewSchema).optional(),
 });
 
-// Export the inferred type for use in your components
+// Export the inferred types
 export type ServiceItem = z.infer<typeof serviceItemSchema>;
 export type FaqItem = z.infer<typeof faqSchema>;
+export type ReviewItem = z.infer<typeof reviewSchema>;
 
 export const generalServicesSchema = z.array(serviceItemSchema);
 export const digitalPrintingSchema = z.array(serviceItemSchema);
