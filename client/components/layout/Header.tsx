@@ -18,7 +18,6 @@ export function Header() {
         <nav className="hidden md:flex items-center gap-8">
           <Link href="/services" className="text-sm font-medium hover:text-primary transition-colors">Services</Link>
           <Link href="/about" className="text-sm font-medium hover:text-primary transition-colors">About Us</Link>
-          <Link href="/#printing" className="text-sm font-medium hover:text-primary transition-colors">Digital Printing</Link>
           <Link href="/#quote" className="text-sm font-medium hover:text-primary transition-colors">Request Quote</Link>
           <Button asChild size="sm">
             <Link href="/#quote">Contact Us</Link>
