@@ -25,7 +25,7 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative h-[650px] flex items-center overflow-hidden">
+        <section className="relative h-[600px] flex items-center overflow-hidden">
           {heroImage && (
             <Image
               src={heroImage.imageUrl}
@@ -39,14 +39,14 @@ export default function HomePage() {
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-2xl">
               <Badge className="mb-6 px-4 py-1.5 text-sm bg-accent text-primary hover:bg-accent border-none font-bold uppercase tracking-wider">
-                Professional Printing & Business Services
+                Premium Printing & Business Services
               </Badge>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tighter">
                 Your Business <span className="text-accent">Vision</span>, Brought to Life.
               </h1>
               <p className="text-xl text-gray-200 mb-10 leading-relaxed font-medium">
-                Experience world-class administrative support and stunning digital signage. 
-                Baitumeleng Services: Quality you can feel, service you can trust.
+                Professional administrative support and high-impact digital signage. 
+                Experience excellence with Baitumeleng Services.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button size="lg" className="h-16 px-10 text-lg font-bold" asChild>
@@ -72,14 +72,14 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* General Services Grid */}
+        {/* General Services Overview */}
         <section id="services" className="py-24 bg-background border-b">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-5xl font-bold text-primary mb-4 tracking-tighter">Essential Business Services</h2>
               <div className="w-24 h-1.5 bg-accent mx-auto rounded-full"></div>
               <p className="text-muted-foreground mt-6 max-w-2xl mx-auto text-lg font-medium">
-                Reliable day-to-day administrative support to keep your office or business running smoothly.
+                Reliable day-to-day administrative support to keep your office running smoothly.
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -102,11 +102,6 @@ export default function HomePage() {
                 </Card>
               ))}
             </div>
-            <div className="text-center mt-16">
-              <Button variant="outline" size="lg" className="h-14 px-8 border-primary text-primary hover:bg-primary hover:text-white font-bold" asChild>
-                <Link href="/services">See All Our Services</Link>
-              </Button>
-            </div>
           </div>
         </section>
 
@@ -119,7 +114,7 @@ export default function HomePage() {
                 <h2 className="text-4xl md:text-6xl text-white mt-4 mb-8 tracking-tighter font-bold leading-[1.1]">Professional Digital <br/> Printing Solutions</h2>
                 <p className="text-white/80 text-xl mb-12 font-medium leading-relaxed">
                   Make a bold statement with our large-format and custom printing services. 
-                  We use state-of-the-art equipment to ensure color accuracy and extreme durability.
+                  We ensure color accuracy and extreme durability on every project.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {DIGITAL_PRINTING.slice(0, 6).map((item) => (
@@ -158,7 +153,7 @@ export default function HomePage() {
                   <div>
                     <h2 className="text-4xl text-primary mb-6 font-bold tracking-tighter">Get Your Custom Quote</h2>
                     <p className="text-muted-foreground mb-12 text-lg font-medium leading-relaxed">
-                      Ready to start your next project? Fill out the form and our team will get back to you with a competitive quote within 24 hours.
+                      Ready to start? Fill out the form and our team will get back to you with a competitive quote within 24 hours.
                     </p>
                     
                     <div className="space-y-8">
