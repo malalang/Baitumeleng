@@ -8,6 +8,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetClose,
 } from "@/components/ui/sheet";
 
 export function Header() {
@@ -53,27 +54,35 @@ export function Header() {
                 </SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-6">
-                <Link 
-                  href="/services" 
-                  className="text-lg font-bold text-primary hover:text-accent transition-colors py-2 border-b border-border/50"
-                >
-                  Services
-                </Link>
-                <Link 
-                  href="/about" 
-                  className="text-lg font-bold text-primary hover:text-accent transition-colors py-2 border-b border-border/50"
-                >
-                  About Us
-                </Link>
-                <Link 
-                  href="/#quote" 
-                  className="text-lg font-bold text-primary hover:text-accent transition-colors py-2 border-b border-border/50"
-                >
-                  Request Quote
-                </Link>
-                <Button asChild className="w-full font-bold h-12 text-lg mt-4 shadow-lg shadow-primary/10">
-                  <Link href="/#quote">Contact Us Now</Link>
-                </Button>
+                <SheetClose asChild>
+                  <Link 
+                    href="/services" 
+                    className="text-lg font-bold text-primary hover:text-accent transition-colors py-2 border-b border-border/50"
+                  >
+                    Services
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link 
+                    href="/about" 
+                    className="text-lg font-bold text-primary hover:text-accent transition-colors py-2 border-b border-border/50"
+                  >
+                    About Us
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Link 
+                    href="/#quote" 
+                    className="text-lg font-bold text-primary hover:text-accent transition-colors py-2 border-b border-border/50"
+                  >
+                    Request Quote
+                  </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                  <Button asChild className="w-full font-bold h-12 text-lg mt-4 shadow-lg shadow-primary/10">
+                    <Link href="/#quote">Contact Us Now</Link>
+                  </Button>
+                </SheetClose>
               </nav>
               <div className="absolute bottom-8 left-6 right-6">
                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Support</p>
