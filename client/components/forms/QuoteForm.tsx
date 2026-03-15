@@ -23,10 +23,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { toast } from '@/hooks/use-toast';
-import { Loader2, UploadCloud } from 'lucide-react';
+import { Loader2, UploadCloud, FileCheck, X } from 'lucide-react';
 
 export function QuoteForm() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [selectedFile, setSelectedFile] = React.useState<File | null>(null);
 
   const form = useForm<QuoteFormData>({
     resolver: zodResolver(quoteSchema),
@@ -40,17 +41,31 @@ export function QuoteForm() {
     },
   });
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedFile(e.target.files[0]);
+    }
+  };
+
+  const removeFile = () => {
+    setSelectedFile(null);
+  };
+
   async function onSubmit(data: QuoteFormData) {
     setIsSubmitting(true);
-    // Simulate API call to Supabase
+    // Simulation of file upload and Supabase integration
+    console.log('Form Data:', data);
+    if (selectedFile) console.log('File to upload:', selectedFile.name);
+    
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsSubmitting(false);
     
     toast({
-      title: "Quote request sent!",
-      description: "We'll get back to you with a formal quote shortly.",
+      title: "Quote request sent successfully!",
+      description: "Our team will review your requirements and send a formal quote within 24 hours.",
     });
     form.reset();
+    setSelectedFile(null);
   }
 
   return (
@@ -62,9 +77,9 @@ export function QuoteForm() {
             name="fullName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel className="text-primary font-bold">Full Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="John Doe" {...field} />
+                  <Input placeholder="Enter your name" {...field} className="h-12 rounded-xl" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -75,9 +90,9 @@ export function QuoteForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email Address</FormLabel>
+                <FormLabel className="text-primary font-bold">Email Address</FormLabel>
                 <FormControl>
-                  <Input placeholder="john@example.com" type="email" {...field} />
+                  <Input placeholder="name@example.com" type="email" {...field} className="h-12 rounded-xl" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -91,9 +106,9 @@ export function QuoteForm() {
             name="phone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Number</FormLabel>
+                <FormLabel className="text-primary font-bold">Phone Number</FormLabel>
                 <FormControl>
-                  <Input placeholder="012 345 6789" {...field} />
+                  <Input placeholder="012 345 6789" {...field} className="h-12 rounded-xl" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -104,10 +119,10 @@ export function QuoteForm() {
             name="service"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Service Required</FormLabel>
+                <FormLabel className="text-primary font-bold">Service Required</FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="h-12 rounded-xl">
                       <SelectValue placeholder="Select a service" />
                     </SelectTrigger>
                   </FormControl>
@@ -132,9 +147,9 @@ export function QuoteForm() {
                 name="quantity"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Quantity</FormLabel>
+                    <FormLabel className="text-primary font-bold">Quantity</FormLabel>
                     <FormControl>
-                      <Input type="number" {...field} />
+                      <Input type="number" {...field} className="h-12 rounded-xl" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -143,19 +158,44 @@ export function QuoteForm() {
           </div>
           <div className="md:col-span-2">
             <FormItem>
-              <FormLabel>Upload File (Optional)</FormLabel>
+              <FormLabel className="text-primary font-bold">Upload Reference (Optional)</FormLabel>
               <FormControl>
-                <div className="flex items-center justify-center w-full">
-                  <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-secondary/50 border-primary/20 hover:bg-secondary transition-colors">
+                {!selectedFile ? (
+                  <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-2xl cursor-pointer bg-secondary/30 border-primary/10 hover:bg-secondary/50 transition-all group">
                     <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                      <UploadCloud className="w-8 h-8 mb-3 text-primary" />
-                      <p className="mb-2 text-sm text-muted-foreground">
-                        <span className="font-semibold text-primary">Click to upload</span> or drag and drop
+                      <UploadCloud className="w-8 h-8 mb-2 text-primary/40 group-hover:text-primary transition-colors" />
+                      <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider">
+                        Click to attach files
                       </p>
                     </div>
-                    <input type="file" className="hidden" />
+                    <input type="file" className="hidden" onChange={handleFileChange} />
                   </label>
-                </div>
+                ) : (
+                  <div className="flex items-center justify-between w-full h-32 p-6 border-2 border-primary/20 bg-primary/5 rounded-2xl animate-in fade-in slide-in-from-bottom-2">
+                    <div className="flex items-center gap-4">
+                      <div className="p-3 bg-primary text-white rounded-xl shadow-lg">
+                        <FileCheck className="w-6 h-6" />
+                      </div>
+                      <div className="overflow-hidden">
+                        <p className="text-sm font-bold text-primary truncate max-w-[150px] md:max-w-[200px]">
+                          {selectedFile.name}
+                        </p>
+                        <p className="text-[10px] text-muted-foreground font-black uppercase tracking-widest">
+                          {(selectedFile.size / 1024).toFixed(1)} KB
+                        </p>
+                      </div>
+                    </div>
+                    <Button 
+                      type="button" 
+                      variant="ghost" 
+                      size="icon" 
+                      onClick={removeFile}
+                      className="hover:bg-destructive/10 hover:text-destructive rounded-full"
+                    >
+                      <X className="w-5 h-5" />
+                    </Button>
+                  </div>
+                )}
               </FormControl>
             </FormItem>
           </div>
@@ -166,11 +206,11 @@ export function QuoteForm() {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Project Description</FormLabel>
+              <FormLabel className="text-primary font-bold">Project Details</FormLabel>
               <FormControl>
                 <Textarea 
-                  placeholder="Tell us more about your project requirements (e.g., sizes, colors, paper type)..." 
-                  className="min-h-[120px]"
+                  placeholder="Tell us more (sizes, colors, materials)..." 
+                  className="min-h-[120px] rounded-2xl"
                   {...field} 
                 />
               </FormControl>
@@ -179,14 +219,14 @@ export function QuoteForm() {
           )}
         />
 
-        <Button type="submit" size="lg" className="w-full text-lg h-12 shadow-md" disabled={isSubmitting}>
+        <Button type="submit" size="lg" className="w-full text-lg h-14 rounded-2xl shadow-xl shadow-primary/10 font-bold" disabled={isSubmitting}>
           {isSubmitting ? (
             <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Processing Request...
+              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              Sending Request...
             </>
           ) : (
-            'Request My Quote'
+            'Request My Quote Now'
           )}
         </Button>
       </form>
