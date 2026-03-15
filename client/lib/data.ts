@@ -225,3 +225,49 @@ export const TESTIMONIALS = [
     content: 'Very affordable binding services for my thesis. The clear covers and spiral binding made it look very professional.'
   }
 ];
+
+export const HOME_FAQS = [
+  {
+    question: 'What is your typical turnaround time?',
+    answer: 'Most standard printing jobs (business cards, flyers, posters) are completed within 24-48 hours. Larger signage and custom fabrication projects typically take 3-5 working days.'
+  },
+  {
+    question: 'Do you offer bulk discounts for students or non-profits?',
+    answer: 'Yes! We have special pricing for students on binding and thesis printing. Non-profit organizations also qualify for discounted rates on marketing materials.'
+  },
+  {
+    question: 'Can you help me with graphic design?',
+    answer: 'Absolutely. We have an in-house design team that can help you create professional layouts for your project, from simple business card tweaks to full brand identities.'
+  },
+  {
+    question: 'Do you deliver finished products?',
+    answer: 'Yes, we offer local delivery within Pretoria and surrounding areas. For clients further away, we can arrange reliable courier services at standard rates.'
+  }
+];
+
+export const LATEST_PROJECTS = [
+  {
+    title: 'Retail Store Signage',
+    category: '3D Signage',
+    image: 'https://picsum.photos/seed/project1/600/400',
+    hint: '3d signage store'
+  },
+  {
+    title: 'University Event Branding',
+    category: 'Banners & Posters',
+    image: 'https://picsum.photos/seed/project2/600/400',
+    hint: 'event banners posters'
+  },
+  {
+    title: 'Corporate Uniforms',
+    category: 'T-Shirt Printing',
+    image: 'https://picsum.photos/seed/project3/600/400',
+    hint: 'printed shirts corporate'
+  },
+  {
+    title: 'Restaurant Menu Design',
+    category: 'Digital Printing',
+    image: 'https://picsum.photos/seed/project4/600/400',
+    hint: 'printed restaurant menu'
+  }
+];
