@@ -13,7 +13,7 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mb-16">
             <h1 className="text-4xl md:text-5xl mb-6">Our Full Suite of Services</h1>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-muted-foreground font-medium">
               From essential business administrative support to high-impact digital printing and signage solutions.
             </p>
           </div>
@@ -45,14 +45,6 @@ export default function ServicesPage() {
           </section>
         </div>
       </main>
-
-      <footer className="bg-white border-t py-12">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Baitumeleng Services. Professional Printing Solutions.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
@@ -60,17 +52,17 @@ export default function ServicesPage() {
 function ServiceCard({ service }: { service: ServiceItem }) {
   const Icon = service.icon;
   return (
-    <Card className="group hover:shadow-lg transition-all duration-300 border-none shadow-sm h-full flex flex-col">
+    <Card className="group hover:shadow-lg transition-all duration-300 border-none shadow-sm h-full flex flex-col bg-white overflow-hidden">
       <CardHeader className="flex flex-row items-center gap-4 pb-2">
         <div className={`p-3 rounded-xl ${service.color || 'bg-secondary'} group-hover:bg-primary transition-colors`}>
           <Icon className={`h-6 w-6 ${service.color ? 'text-white' : 'text-primary'} group-hover:text-white`} />
         </div>
-        <CardTitle className="text-xl">{service.name}</CardTitle>
+        <CardTitle className="text-xl text-primary">{service.name}</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 flex flex-col justify-between">
-        <p className="text-muted-foreground line-clamp-2">{service.desc}</p>
+        <p className="text-muted-foreground line-clamp-2 leading-relaxed font-medium">{service.desc}</p>
         <div className="mt-6">
-          <Button asChild variant="outline" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
+          <Button asChild variant="outline" className="w-full group-hover:bg-primary group-hover:text-white transition-colors font-bold">
             <Link href={`/services/${service.slug}`}>
               View Details <ChevronRight className="ml-2 h-4 w-4" />
             </Link>

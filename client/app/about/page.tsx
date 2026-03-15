@@ -153,14 +153,6 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
-
-      <footer className="bg-white border-t py-12">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-muted-foreground font-bold">
-            &copy; {new Date().getFullYear()} Baitumeleng Services. Excellence in Print.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import {Inter} from 'next/font/google';
 import './globals.css';
 import {Toaster} from '@/components/ui/toaster';
 import {Header} from '@/components/layout/Header';
+import {Footer} from '@/components/layout/Footer';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -47,6 +48,7 @@ export default function RootLayout({
       <body className={`${inter.variable} font-body antialiased selection:bg-accent selection:text-accent-foreground`}>
         <Header />
         {children}
+        <Footer />
         <Toaster />
       </body>
     </html>

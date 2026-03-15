@@ -49,7 +49,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 uppercase tracking-tighter">
                   {service.name}
                 </h1>
-                <p className="text-xl text-white/80 leading-relaxed max-w-2xl">
+                <p className="text-xl text-white/80 leading-relaxed max-w-2xl font-medium">
                   {service.desc}
                 </p>
               </div>
@@ -65,14 +65,14 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
               <div className="lg:col-span-8">
                 <div className="prose prose-lg max-w-none mb-12">
                   <h2 className="text-3xl font-bold mb-6 text-primary">About this Service</h2>
-                  <p className="text-xl text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                  <p className="text-xl text-muted-foreground leading-relaxed font-medium whitespace-pre-wrap">
                     {service.longDescription}
                   </p>
                 </div>
 
                 {service.features && (
                   <div className="mb-12">
-                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                    <h3 className="text-2xl font-bold mb-6 flex items-center gap-2 text-primary">
                       <CheckCircle2 className="text-primary h-6 w-6" /> Key Features
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -80,7 +80,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                         <Card key={i} className="border-none bg-secondary/30">
                           <CardContent className="p-4 flex items-center gap-3">
                             <div className="h-2 w-2 rounded-full bg-accent shrink-0" />
-                            <span className="font-medium">{feature}</span>
+                            <span className="font-bold text-primary/80">{feature}</span>
                           </CardContent>
                         </Card>
                       ))}
@@ -94,7 +94,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                       <HelpCircle className="h-6 w-6 text-primary shrink-0" />
                       <div>
                         <h4 className="font-bold text-primary mb-1 text-lg">Pricing Information</h4>
-                        <p className="text-muted-foreground">{service.pricingNote}</p>
+                        <p className="text-muted-foreground font-medium">{service.pricingNote}</p>
                       </div>
                     </div>
                   </div>
@@ -102,12 +102,12 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
                 {service.faqs && service.faqs.length > 0 && (
                   <div className="mt-16">
-                    <h3 className="text-2xl font-bold mb-8">Frequently Asked Questions</h3>
+                    <h3 className="text-2xl font-bold mb-8 text-primary">Frequently Asked Questions</h3>
                     <Accordion type="single" collapsible className="w-full">
                       {service.faqs.map((faq, index) => (
                         <AccordionItem key={index} value={`item-${index}`}>
-                          <AccordionTrigger className="text-left font-bold text-lg">{faq.question}</AccordionTrigger>
-                          <AccordionContent className="text-muted-foreground text-base">
+                          <AccordionTrigger className="text-left font-bold text-lg text-primary">{faq.question}</AccordionTrigger>
+                          <AccordionContent className="text-muted-foreground text-base font-medium">
                             {faq.answer}
                           </AccordionContent>
                         </AccordionItem>
@@ -122,7 +122,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                 <Card className="sticky top-24 border-none shadow-2xl bg-primary text-white overflow-hidden">
                   <div className="p-8">
                     <h3 className="text-2xl font-bold mb-4">Request a Quote</h3>
-                    <p className="text-white/80 mb-8">
+                    <p className="text-white/80 mb-8 font-medium">
                       Ready to get started with your {service.name} project? Our team is ready to assist you.
                     </p>
                     <div className="space-y-4">
@@ -131,7 +131,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                       </Button>
                       <div className="flex items-center justify-center gap-2 py-4">
                         <Clock className="h-4 w-4 text-accent" />
-                        <span className="text-sm">Response within 24 hours</span>
+                        <span className="text-sm font-bold uppercase tracking-wider">Response within 24 hours</span>
                       </div>
                     </div>
                   </div>
@@ -141,8 +141,8 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                         <MessageSquare className="h-5 w-5 text-primary" />
                       </div>
                       <div>
-                        <p className="text-xs font-bold uppercase tracking-wider text-accent">Need Help?</p>
-                        <p className="font-bold">+27 12 345 6789</p>
+                        <p className="text-xs font-black uppercase tracking-wider text-accent">Need Help?</p>
+                        <p className="font-black">+27 12 345 6789</p>
                       </div>
                     </div>
                   </div>
@@ -152,14 +152,6 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           </div>
         </section>
       </main>
-
-      <footer className="bg-white border-t py-12 mt-20">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Baitumeleng Services. All rights reserved.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
