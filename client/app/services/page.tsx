@@ -1,33 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, ArrowLeft, Printer } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { GENERAL_SERVICES, DIGITAL_PRINTING } from '@/lib/data';
 
 export default function ServicesPage() {
   return (
     <div className="flex flex-col min-h-screen bg-secondary/20">
-      {/* Navigation Header */}
-      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur border-b">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="bg-primary p-2 rounded-lg">
-              <Printer className="text-white h-6 w-6" />
-            </div>
-            <span className="text-2xl font-headline font-bold text-primary tracking-tighter uppercase">
-              Baitumeleng
-            </span>
-          </Link>
-          <Button variant="ghost" asChild>
-            <Link href="/" className="flex items-center gap-2">
-              <ArrowLeft className="h-4 w-4" /> Back to Home
-            </Link>
-          </Button>
-        </div>
-      </header>
-
       <main className="flex-1 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mb-16">
@@ -65,8 +45,7 @@ export default function ServicesPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-white border-t py-12 mt-20">
+      <footer className="bg-white border-t py-12">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-muted-foreground">
             &copy; {new Date().getFullYear()} Baitumeleng Services. Professional Printing Solutions.

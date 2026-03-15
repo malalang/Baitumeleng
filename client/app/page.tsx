@@ -19,28 +19,6 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="bg-primary p-2 rounded-lg">
-              <Printer className="text-white h-6 w-6" />
-            </div>
-            <span className="text-2xl font-headline font-bold text-primary tracking-tighter">
-              BAITUMELENG
-            </span>
-          </Link>
-          <nav className="hidden md:flex items-center gap-8">
-            <Link href="#services" className="text-sm font-medium hover:text-primary transition-colors">Services</Link>
-            <Link href="#printing" className="text-sm font-medium hover:text-primary transition-colors">Digital Printing</Link>
-            <Link href="#quote" className="text-sm font-medium hover:text-primary transition-colors">Request Quote</Link>
-            <Button asChild size="sm">
-              <Link href="#quote">Contact Us</Link>
-            </Button>
-          </nav>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="relative h-[600px] flex items-center overflow-hidden">
         {heroImage && (
@@ -69,8 +47,8 @@ export default function HomePage() {
               <Button size="lg" className="h-14 px-8 text-lg" asChild>
                 <Link href="#quote">Get a Free Quote</Link>
               </Button>
-              <Button size="lg" variant="outline" className="h-14 px-8 text-lg bg-white/10 text-white hover:bg-white hover:text-primary border-white">
-                View All Services
+              <Button size="lg" variant="outline" className="h-14 px-8 text-lg bg-white/10 text-white hover:bg-white hover:text-primary border-white" asChild>
+                <Link href="/services">View All Services</Link>
               </Button>
             </div>
           </div>
@@ -78,7 +56,7 @@ export default function HomePage() {
       </section>
 
       {/* General Services Grid */}
-      <section id="services" className="py-24 bg-background">
+      <section id="services" className="py-24 bg-background border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl mb-4">Essential Business Services</h2>
@@ -88,8 +66,8 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {GENERAL_SERVICES.map((service) => (
-              <Card key={service.name} className="group hover:shadow-xl transition-all duration-300 border-none shadow-sm bg-white overflow-hidden">
+            {GENERAL_SERVICES.slice(0, 6).map((service) => (
+              <Card key={service.id} className="group hover:shadow-xl transition-all duration-300 border-none shadow-sm bg-white overflow-hidden">
                 <CardHeader className="flex flex-row items-center gap-4 pb-2">
                   <div className="p-3 rounded-xl bg-secondary group-hover:bg-primary transition-colors">
                     <service.icon className="h-6 w-6 text-primary group-hover:text-white" />
@@ -97,13 +75,20 @@ export default function HomePage() {
                   <CardTitle className="text-xl">{service.name}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">{service.desc}</p>
-                  <Button variant="link" className="px-0 mt-4 group-hover:translate-x-2 transition-transform">
-                    Learn more <ChevronRight className="h-4 w-4 ml-1" />
+                  <p className="text-muted-foreground line-clamp-2">{service.desc}</p>
+                  <Button variant="link" className="px-0 mt-4 group-hover:translate-x-2 transition-transform" asChild>
+                    <Link href={`/services/${service.slug}`}>
+                      Learn more <ChevronRight className="h-4 w-4 ml-1" />
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>
             ))}
+          </div>
+          <div className="text-center mt-12">
+            <Button variant="outline" size="lg" asChild>
+              <Link href="/services">See All Services</Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -120,13 +105,13 @@ export default function HomePage() {
                 We use state-of-the-art equipment to ensure color accuracy and durability.
               </p>
               <div className="grid grid-cols-2 gap-6">
-                {DIGITAL_PRINTING.map((item) => (
-                  <div key={item.name} className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/10">
+                {DIGITAL_PRINTING.slice(0, 6).map((item) => (
+                  <Link key={item.id} href={`/services/${item.slug}`} className="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 transition-colors">
                     <div className={`p-2 rounded-lg ${item.color}`}>
                       <item.icon className="h-5 w-5 text-white" />
                     </div>
                     <span className="font-medium">{item.name}</span>
-                  </div>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -193,9 +178,9 @@ export default function HomePage() {
                 <div className="mt-12 pt-8 border-t border-primary/10">
                   <p className="text-xs font-bold text-primary uppercase tracking-widest mb-2">Social Hub</p>
                   <div className="flex gap-4">
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">FB</div>
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">IG</div>
-                    <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">IN</div>
+                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">FB</div>
+                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">IG</div>
+                    <div className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center cursor-pointer hover:bg-accent hover:text-primary transition-all">IN</div>
                   </div>
                 </div>
               </div>

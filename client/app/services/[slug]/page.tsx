@@ -1,14 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
-  ArrowLeft, 
   CheckCircle2, 
   MessageSquare, 
-  Printer, 
   Clock,
   HelpCircle
 } from 'lucide-react';
@@ -37,25 +34,6 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur border-b">
-        <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="bg-primary p-2 rounded-lg">
-              <Printer className="text-white h-6 w-6" />
-            </div>
-            <span className="text-2xl font-headline font-bold text-primary tracking-tighter uppercase">
-              Baitumeleng
-            </span>
-          </Link>
-          <Button variant="ghost" asChild>
-            <Link href="/services" className="flex items-center gap-2">
-              <ArrowLeft className="h-4 w-4" /> All Services
-            </Link>
-          </Button>
-        </div>
-      </header>
-
       <main className="flex-1">
         {/* Hero Section */}
         <section className="bg-primary py-20 text-white">
@@ -122,7 +100,6 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                   </div>
                 )}
 
-                {/* FAQ Section (Optional based on data) */}
                 {service.faqs && service.faqs.length > 0 && (
                   <div className="mt-16">
                     <h3 className="text-2xl font-bold mb-8">Frequently Asked Questions</h3>
