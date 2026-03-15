@@ -101,7 +101,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Partners / Trust Bar */}
+        {/* Brand Trust Bar */}
         <div className="bg-white py-16">
           <div className="container mx-auto px-4">
             <p className="text-center text-xs font-black text-muted-foreground uppercase tracking-[0.3em] mb-10">Trusted by Leading Organizations</p>

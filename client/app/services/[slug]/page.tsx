@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
   CheckCircle2, 
@@ -11,9 +11,6 @@ import {
   Clock,
   HelpCircle,
   ArrowRight,
-  ShieldCheck,
-  Zap,
-  Award,
   Star,
   ChevronRight,
   Image as ImageIcon
@@ -165,8 +162,8 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                               <p className="text-xs text-muted-foreground font-bold uppercase tracking-widest">{review.date}</p>
                             </div>
                             <div className="flex gap-0.5">
-                              {[...Array(5)].map((_, i) => (
-                                <Star key={i} className={`h-4 w-4 ${i < review.rating ? 'text-accent fill-accent' : 'text-muted'}`} />
+                              {[...Array(5)].map((_, idx) => (
+                                <Star key={idx} className={`h-4 w-4 ${idx < review.rating ? 'text-accent fill-accent' : 'text-muted'}`} />
                               ))}
                             </div>
                           </div>
