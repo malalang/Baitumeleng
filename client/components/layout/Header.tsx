@@ -15,13 +15,10 @@ import Image from 'next/image';
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-      <div className="container mx-auto px-4 h-12 md:h-20 flex items-center justify-between">
+      <div className="container mx-auto px-2 md:px-4 h-12 md:h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-        <Image src="/Logo.png" className="" alt="Logo" width={60} height={60} />
-          {/* <div className="bg-primary p-2 rounded-lg">
-            <Printer className="text-white h-6 w-6" />
-          </div> */}
-          <span className="text-lg md:text-2xl font-headline font-bold text-primary tracking-tighter uppercase">
+          <Image src="/Logo.png" className="" alt="Logo" width={60} height={60} />
+          <span className="text-md md:text-2xl font-headline font-bold text-primary tracking-tighter uppercase">
             BAITUMELENG PTY (ltd)
           </span>
         </Link>
@@ -57,24 +54,24 @@ export function Header() {
               </SheetHeader>
               <nav className="flex flex-col gap-6">
                 <SheetClose asChild>
-                  <Link 
-                    href="/services" 
+                  <Link
+                    href="/services"
                     className="text-lg font-bold text-primary hover:text-accent transition-colors py-2 border-b border-border/50"
                   >
                     Services
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
-                  <Link 
-                    href="/about" 
+                  <Link
+                    href="/about"
                     className="text-lg font-bold text-primary hover:text-accent transition-colors py-2 border-b border-border/50"
                   >
                     About Us
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
-                  <Link 
-                    href="/#quote" 
+                  <Link
+                    href="/#quote"
                     className="text-lg font-bold text-primary hover:text-accent transition-colors py-2 border-b border-border/50"
                   >
                     Request Quote
