@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Baitumeleng | Professional Printing & Business Services',
     description: 'Expert printing and business solutions.',
-    images: ['Logo.jpg'],
+    images: ['/Logo.jpg'],
   },
 };
 
