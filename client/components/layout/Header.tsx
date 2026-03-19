@@ -18,7 +18,7 @@ export function Header() {
       <div className="container mx-auto px-2 md:px-4 h-12 md:h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/Logo.png" className="" alt="Logo" width={60} height={60} />
-          <span className="text-md md:text-2xl font-headline font-bold text-primary tracking-tighter uppercase">
+          <span className="text-sm md:text-2xl font-headline font-bold text-primary tracking-tighter uppercase">
             BAITUMELENG PTY (ltd)
           </span>
         </Link>
