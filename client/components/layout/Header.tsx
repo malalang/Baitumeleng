@@ -10,17 +10,19 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+import Image from 'next/image';
 
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
-      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
+      <div className="container mx-auto px-4 h-12 md:h-20 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <div className="bg-primary p-2 rounded-lg">
+        <Image src="/Logo.png" className="" alt="Logo" width={60} height={60} />
+          {/* <div className="bg-primary p-2 rounded-lg">
             <Printer className="text-white h-6 w-6" />
-          </div>
-          <span className="text-2xl font-headline font-bold text-primary tracking-tighter uppercase">
-            BAITUMELENG
+          </div> */}
+          <span className="text-lg md:text-2xl font-headline font-bold text-primary tracking-tighter uppercase">
+            BAITUMELENG PTY (ltd)
           </span>
         </Link>
 
@@ -86,7 +88,7 @@ export function Header() {
               </nav>
               <div className="absolute bottom-8 left-6 right-6">
                 <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2">Support</p>
-                <p className="text-sm font-bold text-primary">+27 12 345 6789</p>
+                <p className="text-sm font-bold text-primary">+27 67 946 2796</p>
               </div>
             </SheetContent>
           </Sheet>

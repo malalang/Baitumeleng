@@ -48,7 +48,7 @@ export default function HomePage() {
               src={heroImage.imageUrl}
               alt={heroImage.description}
               fill
-              className="object-cover brightness-[0.35]"
+              className="object-cover brightness-[0.10]"
               priority
               data-ai-hint={heroImage.imageHint}
             />
@@ -327,7 +327,7 @@ export default function HomePage() {
                         </div>
                         <div>
                           <p className="font-bold text-lg text-primary">Call Us Directly</p>
-                          <p className="text-muted-foreground font-medium">+27 12 345 6789</p>
+                          <p className="text-muted-foreground font-medium">+27 67 946 2796</p>
                         </div>
                       </div>
                       <div className="flex items-start gap-5">

@@ -48,7 +48,7 @@ export function Footer() {
             <h4 className="font-bold text-primary uppercase tracking-widest text-xs mb-6">Contact</h4>
             <ul className="space-y-4">
               <li className="text-muted-foreground font-semibold">info@baitumeleng.co.za</li>
-              <li className="text-muted-foreground font-semibold">+27 12 345 6789</li>
+              <li className="text-muted-foreground font-semibold">+27 67 946 2796</li>
               <li className="text-muted-foreground text-sm font-medium">123 Business Street, Pretoria, 0001</li>
             </ul>
           </div>

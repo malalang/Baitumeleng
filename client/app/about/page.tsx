@@ -35,7 +35,7 @@ export default function AboutPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div className="relative">
                 <Image 
-                  src="https://picsum.photos/seed/baitumeleng-history/800/1000" 
+                  src="/Logo.png" 
                   width={800} 
                   height={1000} 
                   alt="Our History" 

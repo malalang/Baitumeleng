@@ -239,7 +239,7 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
                         </div>
                         <div>
                           <p className="text-xs font-black uppercase tracking-[0.2em] text-accent mb-1">Direct Line</p>
-                          <p className="font-bold text-xl">+27 12 345 6789</p>
+                          <p className="font-bold text-xl">+27 67 946 2796</p>
                         </div>
                       </div>
                     </div>

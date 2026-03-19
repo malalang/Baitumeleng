@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     siteName: 'Baitumeleng',
     images: [
       {
-        url: 'https://picsum.photos/seed/baitumeleng/1200/630',
+        url: 'Logo.jpg',
         width: 1200,
         height: 630,
         alt: 'Baitumeleng Printing Services',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Baitumeleng | Professional Printing & Business Services',
     description: 'Expert printing and business solutions.',
-    images: ['https://picsum.photos/seed/baitumeleng-tw/1200/630'],
+    images: ['Logo.jpg'],
   },
 };
 

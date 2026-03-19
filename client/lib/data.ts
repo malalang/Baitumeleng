@@ -23,9 +23,9 @@ import {
 } from './validations/service.schema';
 
 const sampleGallery = [
-  { url: 'https://picsum.photos/seed/p1/800/600', alt: 'Project Example 1', hint: 'printing work' },
-  { url: 'https://picsum.photos/seed/p2/800/600', alt: 'Project Example 2', hint: 'office services' },
-  { url: 'https://picsum.photos/seed/p3/800/600', alt: 'Project Example 3', hint: 'digital print' },
+  { url: '/T-shirt.png', alt: 'Project Example 1', hint: 'printing work' },
+  { url: '/Logo.png', alt: 'Project Example 2', hint: 'office services' },
+  { url: '/Business-Card.png', alt: 'Project Example 3', hint: 'digital print' },
 ];
 
 const sampleReviews = [
@@ -296,7 +296,7 @@ export const LATEST_PROJECTS = [
   {
     title: 'Corporate Uniforms',
     category: 'T-Shirt Printing',
-    image: 'https://picsum.photos/seed/project3/600/400',
+    image: 'T-shirt.png',
     hint: 'printed shirts corporate'
   },
   {
