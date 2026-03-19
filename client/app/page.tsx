@@ -200,8 +200,8 @@ export default function HomePage() {
                   className="rounded-[40px] object-cover shadow-2xl border-8 border-white/5"
                   data-ai-hint="large format printing"
                 />
-                <div className="absolute -bottom-8 -left-8 bg-accent text-primary p-8 rounded-[32px] shadow-2xl max-w-xs border-4 border-primary">
-                  <span className="block text-5xl font-black mb-2 tracking-tighter">100%</span>
+                <div className="absolute -bottom-8 -left-4 md:-left-8 bg-accent text-primary p-4 md:p-8 rounded-[32px] shadow-2xl max-w-xs border-4 border-primary">
+                  <span className="block text-4xl md:text-5xl font-black mb-2 tracking-tighter">100%</span>
                   <span className="text-sm font-bold uppercase tracking-wider leading-tight block">Quality Satisfaction Guarantee on every single project.</span>
                 </div>
               </div>
