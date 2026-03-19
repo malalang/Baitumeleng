@@ -13,17 +13,18 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://baitumeleng.vercel.app'),
   title: 'Baitumeleng | Professional Printing & Business Services',
   description: 'Baitumeleng offers high-quality printing, stationery, digital signage, and business services. From flyers to 3D signage, we deliver excellence.',
   keywords: ['printing', 'business services', 'Baitumeleng', 'stationery', 'digital printing', '3D signage', 'photocopying', 'flyers', 'posters'],
   openGraph: {
     title: 'Baitumeleng | Professional Printing & Business Services',
     description: 'Expert printing and business solutions for your local needs.',
-    url: 'https://baitumeleng.co.za',
+    url: 'https://baitumeleng.vercel.app',
     siteName: 'Baitumeleng',
     images: [
       {
-        url: '/Logo.jpg',
+        url: 'https://baitumeleng.vercel.app/Logo.png',
         width: 1200,
         height: 630,
         alt: 'Baitumeleng Printing Services',
@@ -36,7 +37,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Baitumeleng | Professional Printing & Business Services',
     description: 'Expert printing and business solutions.',
-    images: ['/Logo.jpg'],
+    images: ['https://baitumeleng.vercel.app/Logo.png'],
   },
 };
 
