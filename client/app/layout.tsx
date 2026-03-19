@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     siteName: 'Baitumeleng',
     images: [
       {
-        url: 'Logo.jpg',
+        url: '/Logo.jpg',
         width: 1200,
         height: 630,
         alt: 'Baitumeleng Printing Services',
