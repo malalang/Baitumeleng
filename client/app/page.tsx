@@ -194,7 +194,7 @@ export default function HomePage() {
               </div>
               <div className="relative aspect-square">
                 <Image 
-                  src="https://picsum.photos/seed/baitumeleng-printing/800/800" 
+                  src="/T-shirt.png" 
                   alt="Large scale printing" 
                   fill 
                   className="rounded-[40px] object-cover shadow-2xl border-8 border-white/5"

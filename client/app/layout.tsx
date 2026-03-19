@@ -4,6 +4,8 @@ import './globals.css';
 import {Toaster} from '@/components/ui/toaster';
 import {Header} from '@/components/layout/Header';
 import {Footer} from '@/components/layout/Footer';
+import Link from 'next/link';
+import { FaWhatsapp } from 'react-icons/fa';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -50,6 +52,9 @@ export default function RootLayout({
         {children}
         <Footer />
         <Toaster />
+        <Link href="https://wa.me/27679462796" className="fixed bottom-8 right-8 z-50 p-4 bg-green-500 rounded-full shadow-lg hover:bg-green-600 transition-colors">
+          <FaWhatsapp size={32} color="#fff" />
+        </Link>
       </body>
     </html>
   );
